@@ -1,88 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<title>PS70: Intro to Digital Fabrication </title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="./style.css" rel="stylesheet">
-
-<nav class="navbar navbar-expand-sm navbar-dark" style="background-color: #dcdcdc; color: #EEE7E8;">
-  <div style="align-items: center; justify-content: center;" class="container-fluid">
-    <div class="flexrow">
-      <h2 class="nav-title">PS70 Fall 2024</h2>
-    </div>
-    <div class="navbar-nav">
-      <h4><a class="nav-link" href="./index.html">Home</a></h4>
-      <h4><a class="nav-link" href="./about.html">About</a></h4>
-      <h4><a class="nav-link" href="./13_finalproject/index.html">Final Project</a></h4>
-    </div>
-  </div>
-</nav>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gabe's Site</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="favicon.png" type="image/png">
+</head>
 
 <body>
 
-<xmp style="display:none;">
+<div class="scene">
+  <img src="FullSizeHome-Recovered.png" class="scene-bg" />
 
-<div class="container-fluid bg-3 text-center">
   
-  <div class="row">
-    <div class="col-sm-4">
-      <image style = "width: 75%"src = "./01_intro/week1-placeholder-image.jpg" alt = "week 1 placeholder"> </image>
-      <br>[Week 1: Intro](./01_intro/index.html)
-    </div>
-    <div class="col-sm-4">
-      <image style = "width: 75%"src = "./02_2Ddesign/week2-placeholder-image.jpg" alt = "week 2 placeholder"> </image>
-      <br>[Week 2: 2D Design](./02_2Ddesign/index.html)
-    </div>
-    <div class="col-sm-4">
-      <image style = "width: 75%"src = "./03_fabrication/week3-placeholder-image.jpg" alt = "week 3 placeholder"> </image>
-      <br>[Week 3: Fabrication](./03_fabrication/index.html)
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-4">
-      <image style = "width: 75%"src = "./04_microcontroller/week4-placeholder-image.jpg" alt = "week 4 placeholder"> </image> 
-      <br>[Week 4: Programming](./04_microcontroller/index.html)
-    </div>
-    <div class="col-sm-4">
-      <image style = "width: 75%"src = "./05_3Ddesign/week5-placeholder-image.jpg" alt = "week 5 placeholder"> </image>
-      <br>[Week 5: 3D Design](./05_3Ddesign/index.html)
-    </div>
-    <div class="col-sm-4">
-      <image style = "width: 75%"src = "./06_inputs/week6-placeholder-image.jpg" alt = "week 6 placeholder"> </image>
-      <br>[Week 6: Inputs](./06_inputs/index.html)
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-4">
-      <image style = "width: 75%"src = "./07_outputs/week7-placeholder-image.jpg" alt = "week 7 placeholder"> </image>
-      <br>[Week 7: Outputs](./07_outputs/index.html)
-    </div>
-    <div class="col-sm-4">
-      <image style = "width: 75%"src = "./08_cnc/week8-placeholder-image.jpg" alt = "week 8 placeholder"> </image>
-      <br>[Week 8: CNC](./08_cnc/index.html)
-    </div>
-    <div class="col-sm-4">
-      <image style = "width: 75%"src = "./09_networking/week9-placeholder-image.jpg" alt = "week 9 placeholder"> </image>
-      <br>[Week 9: Networking](./09_networking/index.html)
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-4">
-      <image style = "width: 75%"src = "./10_machine/machine-placeholder-image.jpg" alt = "machine building placeholder"> </image>
-      <br>[Machine Building](./10_machine/index.html)
-    </div>
-    <div class="col-sm-4">
-      <image style = "width: 75%"src = "./13_finalproject/final-project-placeholder-image.jpg" alt = "final project placeholder"> </image> 
-      <br>[Final Project](./13_finalproject/index.html)
-    </div>
-  </div>
+  <!-- Glowing! Took from Online -->
+  <svg class="bg-glow-svg" viewBox="0 0 1937 1080">
+    <defs>
+      <radialGradient id="glowGreen">
+        <stop offset="0%"  stop-color="rgba(80,255,120,0.95)"/>
+        <stop offset="100%" stop-color="rgba(80,255,120,0)"/>
+      </radialGradient>
+      <filter id="glowBlurTight"><feGaussianBlur stdDeviation="6"/></filter>
+    </defs>
+    <circle class="flicker-circle" cx="299" cy="180" r="20" fill="url(#glowGreen)" filter="url(#glowBlurTight)"/>
+  </svg>
+
+  <video id="screenVideo" class="scene-video" src="anorak_looped.mp4" muted playsinline></video>
+
+  <svg class="map-overlay" viewBox="0 0 1937 1080">
+    <a href="./about.html"><polygon points="1561,262 1667,269 1661,303 1555,294"/></a>
+    <a href="./01_intro/index.html"><polygon points="1499,300 1723,317 1720,341 1496,318"/></a>
+    <a href="./02_2Ddesign/index.html"><polygon points="1499,322,1716,344,1715,365,1494,337"/></a>
+    <a href="./03_fabrication/index.html"><polygon points="1492,342,1709,370,1704,389,1492,359"/></a>
+    <a href="./04_microcontroller/index.html"><polygon points="1490,363,1701,392,1697,411,1489,382"/></a>
+    <a href="./05_3Ddesign/index.html"><polygon points="1487,387,1696,414,1691,431,1484,404"/></a>
+    <a href="./06_inputs/index.html"><polygon points="1485,407,1689,436,1685,457,1480,426"/></a>
+    <a href="./07_outputs/index.html"><polygon points="886,205,955,217,955,231,888,228"/></a>
+    <a href="./08_cnc/index.html"><polygon points="970,219,1018,216,1020,228,975,231"/></a>
+    <a href="./09_networking/index.html"><polygon points="1034,214,1116,211,1117,223,1035,228"/></a>
+    <a href="./10_machine/index.html"><polygon points="1134,210,1201,205,1205,217,1136,223"/></a>
+    <a href="./13_finalproject/index.html"><polygon points="287,162,319,169,309,196,275,193"/></a>
+  </svg>
 </div>
 
-
-</xmp>
+<script src="script.js"></script>
 </body>
-
-<script src="./strapdown.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
-
 </html>

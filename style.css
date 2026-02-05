@@ -1,8 +1,8 @@
 body {
     font: 20px "Gill Sans", Verdana, sans-serif;
     line-height: 1.8;
-    color: #000000;
-    background-color: #dcdcdc;
+    color: #33FF33;
+    background-color: #000000;
     padding-top: 0px !important;
   }
 
@@ -14,17 +14,18 @@ p {font-size: 16px;}
 .margin {margin-bottom: 30px;}
 
 a {
-  color: #000000;
+  color: #33FF33;
 }
 
 .container-fluid {
-  padding: 0px;
+  justify-content: space-between !important;
+  padding: 0px 30px;
   /*padding-bottom: 70px;*/
 }
 
 nav {
-  background-color: #dcdcdc;
-  color: #EEE7E8;
+  background-color: #000000;
+  color: #33FF33;
   padding: 50px 0px;
 }
 
@@ -37,40 +38,40 @@ nav {
 .nav-title{
   margin-left: 15px;
   margin-right: 15px;
-  color: #000000;
+  color: #33FF33;
 }
 
 .nav-link {
-  border: 3px outset #a3a3a3;
+  border: 3px outset #33FF33;
   border-radius: 20px;
-  padding: 10px 30px;
-  background-color: #a3a3a3;
-  color: #EEE7E8;
+  padding: 10px 50px !important;
+  margin-top: 10px !important; 
+  background-color: transparent;
+  color: #33FF33 !important;
   transition: 0.3s;
 }
 
 .nav-link:hover {
-  border: 3px outset #FFFFFF;
   border-radius: 20px;
-  padding: 10px 30px;
-  background-color: #a3a3a3;
+  background-color: #33FF33;
+  color: #000000 !important;
   transition: 0.3s;
 }
 
 #btn {
-  border: 3px outset #FFFFFF;
+  border: 3px outset #33FF33;
   border-radius: 40px;
   padding: 10px 30px;
-  background-color: #a3a3a3;
-  color: #000000;
+  background-color: transparent;
+  color: #33FF33;
   transition: 0.3s;
 }
 
 #btn:hover {
-  border: 3px inset #FFFFFF;
   border-radius: 40px;
   padding: 10px 30px;
-  background-color: #a3a3a3;
+  color: #000000;
+  background-color: #33FF33;
   transition: 0.3s;
 }
 
@@ -95,7 +96,7 @@ code {
 }
 
 .caption {
-  color: gray;
+  color: #33FF33;
   font-size: 16px;
   text-align: center;
   font-style: italic;

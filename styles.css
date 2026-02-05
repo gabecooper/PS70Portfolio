@@ -1,0 +1,57 @@
+    body { 
+        margin: 0; 
+        background: #000; 
+        overflow-x: hidden; 
+    }
+
+    .scene {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1937 / 1080;
+      background: #000;
+    }
+
+    .scene-bg { 
+        width: 100%; 
+        height: 100%; 
+        display: block; 
+        object-fit: contain; 
+    }
+
+    .scene-video {
+      position: absolute;
+      left: 22.90%; top: 31.67%;
+      width: 39.17%; height: 68.43%;
+      object-fit: cover;
+      z-index: 10;
+      filter: brightness(0.90);
+      clip-path: inset(0 3px 0 0);
+    }
+
+    /* From YouTube videos */
+    .bg-glow-svg {
+      position: absolute;
+      inset: 0;
+      z-index: 6;
+      pointer-events: none;
+    }
+
+     @keyframes neonFlicker {
+      60% { opacity: 1; filter: brightness(1.5); }
+      0%, 20%, 100% { opacity: 0.3; filter: brightness(0.5); }
+    }
+
+    .flicker-circle {
+        animation: neonFlicker 6s linear infinite;
+        transform-origin: 299px 180px;
+    }
+    /* End YT */
+
+    .map-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 20;
+    }
+    
+    .map-overlay polygon { fill: transparent; pointer-events: auto; cursor: pointer; transition: 0.2s; }
+    .map-overlay a:hover polygon { fill: rgba(255,255,255,0.12); }
