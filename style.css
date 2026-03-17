@@ -105,3 +105,24 @@ code {
 #aboutme {
   padding: 20px;
 }
+.media-row {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  margin: 16px 0 24px 0;
+}
+
+.small-image {
+  height: 75px;
+  width: auto;
+}
+
+.medium-image {
+  height: 120px;
+  width: auto;
+}
+
+.large-image {
+  height: 150px;
+  width: auto;
+}
