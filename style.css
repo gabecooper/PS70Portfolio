@@ -7,10 +7,59 @@ body {
   }
 
 .textcontainer {
-  padding: 2% 10%;;
+  padding: 2% 10%;
 }
 
-p {font-size: 16px;}
+/* Two columns: media left + text right; add .flip so text is left and media right */
+.split {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  align-items: center;
+  margin: 1.25rem 0;
+}
+
+.split.flip {
+  flex-direction: row-reverse;
+}
+
+.split .split-media,
+.split .split-text {
+  flex: 1 1 280px;
+  min-width: 0;
+}
+
+.split .split-media iframe,
+.split .split-media img,
+.split .split-media video {
+  max-width: 100%;
+  height: auto;
+}
+
+.split pre.code-block {
+  margin: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.split .split-text > p:first-child {
+  margin-top: 0;
+}
+
+.split .split-text > p:last-child {
+  margin-bottom: 0;
+}
+
+/* Fusion / Autodesk A360 embeds: square frame everywhere */
+iframe[src*="autodesk360.com"] {
+  display: block;
+  width: 100%;
+  max-width: 520px;
+  aspect-ratio: 1 / 1;
+  height: auto;
+}
+
+p { font-size: 16px; }
 .margin {margin-bottom: 30px;}
 
 a {
@@ -56,6 +105,33 @@ nav {
   background-color: #33FF33;
   color: #000000 !important;
   transition: 0.3s;
+}
+
+/* Same look as .nav-link, scaled for inline controls; resets beat Bootstrap Reboot on buttons */
+.mvp-slideshow .btn-site-sm,
+button.btn-site-sm {
+  -webkit-appearance: none;
+  appearance: none;
+  box-sizing: border-box;
+  border: 3px outset #33FF33;
+  border-radius: 16px;
+  padding: 8px 28px;
+  margin: 0;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.35;
+  background-color: rgba(0, 0, 0, 0.85);
+  color: #33FF33;
+  cursor: pointer;
+  transition: color 0.2s, background-color 0.2s, border-color 0.2s;
+}
+
+.mvp-slideshow .btn-site-sm:hover,
+button.btn-site-sm:hover {
+  border-radius: 16px;
+  background-color: #33FF33;
+  color: #000000;
 }
 
 #btn {
@@ -112,6 +188,24 @@ code {
   margin: 16px 0 24px 0;
 }
 
+/* Chain clip: hide bottom 40% (top 60% visible); wrapper height trims layout */
+.chain-video-crop {
+  display: inline-block;
+  width: 300px;
+  max-width: 100%;
+  height: 180px;
+  overflow: hidden;
+  line-height: 0;
+  vertical-align: top;
+}
+
+.chain-video-crop video {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-position: top center;
+}
+
 .small-image {
   height: 75px;
   width: auto;
@@ -125,4 +219,58 @@ code {
 .large-image {
   height: 150px;
   width: auto;
+}
+
+.code-block {
+  background: #0f172a;          /* dark slate */
+  color: #e2e8f0;               /* light text */
+  padding: 16px;
+  border-radius: 12px;
+  font-family: "Fira Code", monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  overflow-x: auto;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.code-block .comment { color: #94a3b8; }
+.code-block .keyword { color: #60a5fa; }
+.code-block .function { color: #34d399; }
+
+/* MVP video slideshow (tutorial-style: hide all .mvp-slide except the one JS sets to display:block) */
+.mvp-slideshow {
+  max-width: 720px;
+  margin: 28px auto 40px;
+  border: 3px solid #33FF33;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
+  box-shadow: 0 0 0 1px rgba(51, 255, 51, 0.35), 0 12px 40px rgba(51, 255, 51, 0.15);
+}
+
+.mvp-slide {
+  display: none;
+  box-sizing: border-box;
+}
+
+.mvp-slide:first-child {
+  display: block;
+}
+
+.mvp-slide video {
+  width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  background: #000;
+}
+
+.mvp-slideshow-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 14px 16px 16px;
+  background: #0a0a0a;
+  border-top: 1px solid #33FF33;
 }

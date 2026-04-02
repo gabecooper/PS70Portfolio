@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PS70: Intro to Digital Fabrication</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../style.css" rel="stylesheet">
+</head>
 
-<title>PS70: Intro to Digital Fabrication </title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="../style.css" rel="stylesheet">
-
-
+<body>
 <nav class="navbar navbar-expand-sm navbar-dark" style=" color: #EEE7E8;">
   <div style="align-items: center; justify-content: center;" class="container-fluid">
     <div class="flexrow">
@@ -18,7 +21,6 @@
   </div>
 </nav>
 
-<body>
 <div class="textcontainer">
 <p class="margin">   </p>
 
@@ -28,10 +30,198 @@
 
 <h4>Assignment: Minimum Viable Product for Final Project</h4>
 
-
+<div class="split">
+  <div class="split-media">
+    <iframe src="https://college1042.autodesk360.com/shares/public/SH28cd1QT2badd0ea72b409d9f0c112f2501?mode=embed" width="640" height="480" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" frameborder="0"></iframe>
+  </div>
+  <div class="split-text">
+    <p>
+    For my MVP, I decided that I wanted to see each mechanical element of my project work as intended.
+    To do this, I chose to control the scoreboard using potentiometers instead of a Bluetooth message.
+    Here was my initial plan:
+    </p>
+    <p>There were three main areas to consider: the elevator, the emptier, and the dropper.</p>
+  </div>
 </div>
+
+<div class="split flip">
+  <div class="split-media">
+    <iframe src="https://college1042.autodesk360.com/shares/public/SH28cd1QT2badd0ea72bcae64e6e6f626dcf?mode=embed" width="500" height="300" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" frameborder="0"></iframe>
+    <div class="media-row">
+      <div class="chain-video-crop">
+        <video width="300" height="300" autoplay muted loop playsinline>
+          <source src="chain.mov" type="video/mp4">
+        </video>
+      </div>
+      <video width="300" height="300" autoplay muted loop playsinline>
+        <source src="cam.mov" type="video/mp4">
+      </video>
+    </div>
+  </div>
+  <div class="split-text">
+    <p>
+    First, the elevator. I explored several ideas initially: a conveyor belt, then a chain-style
+    system, and even a cam-and-follower “stair” mechanism.
+    </p>
+  </div>
+</div>
+
+<div class="split">
+  <div class="split-media">
+    <iframe src="https://college1042.autodesk360.com/shares/public/SH28cd1QT2badd0ea72b6626c3140004170e?mode=embed" width="640" height="480" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" frameborder="0"></iframe>
+  </div>
+  <div class="split-text">
+    <p>
+    In the end, I chose a hydraulic screw setup because it was the most compact and reliable.
+    3D-printing required careful measurement of the marble, but the process ended up being quick.
+    </p>
+    <p>
+    The main challenge was allowing the marble to dismount easily while still keeping it “protected”
+    inside the elevator. My initial design was fully vertical and used dowels to prevent the marble
+    from falling out. However, after struggling with consistent loading and unloading, I pitched the
+    screw at a 45° angle and used gravity to keep the marble in place. This change worked well. The
+    elevator is now my favorite part of the project and is satisfying to watch.
+    </p>
+  </div>
+</div>
+
+<div class="split flip">
+  <div class="split-media">
+    <iframe src="https://college1042.autodesk360.com/shares/public/SH28cd1QT2badd0ea72bdd12168c0018ac1b?mode=embed" width="520" height="520" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" frameborder="0"></iframe>
+  </div>
+  <div class="split-text">
+    <p>
+    Second, the dropper. I chose a Scotch yoke mechanism to create translational motion because I
+    wanted to use a servo, keep the design compact, and make it visually interesting.
+    </p>
+    <p>
+    However, I’ve run into torque limitations, so I’m considering switching to a rack-and-pinion
+    system in future iterations. The Scotch yoke pulls a laser-cut tab out from under the marbles,
+    releasing them down a slide—similar to the mechanic used in Connect 4.
+    </p>
+  </div>
+</div>
+<div class="split">
+  <div class="split-media">
+    <iframe src="https://college1042.autodesk360.com/shares/public/SH28cd1QT2badd0ea72b699b98ecd3a52ecd?mode=embed" width="520" height="520" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" frameborder="0"></iframe>
+  </div>
+  <div class="split-text">
+    <p>
+    Finally, the dropper. The idea is that the elevator deposits a marble (via a tube) into the
+    dropper, which then precisely places it into a selected column based on microcontroller input.
+    </p>
+    <p>
+    To simplify alignment since the final dropper will sit centrally I designed the columns to be
+    lower toward the middle. This allows a dropper of constant diameter to reach each column equally.
+    In this MVP, the dropper is controlled directly by a potentiometer (with smoothing applied due
+    to noisy readings).
+    </p>
+  </div>
+</div>
+<pre class="code-block"><code>
+<span class="comment">===CODE=== </span>
+int angle1 = constrain(pot1.getSteppedAngle(), 0, 180);
+int angle2 = constrain(pot2.getSteppedAngle(), 0, 180);
+servo1.writeAngle(angle1);
+servo2.writeAngle(angle2);
+</code></pre>
+
+<div id="mvpSlideshow" class="mvp-slideshow" aria-label="MVP mechanism videos">
+  <div class="mvp-slide">
+    <video muted playsinline loop preload="metadata">
+      <source src="emptier.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="mvp-slide">
+    <video muted playsinline loop preload="metadata">
+      <source src="dropperTest.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="mvp-slide">
+    <video muted playsinline loop preload="metadata">
+      <source src="emptyfail.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="mvp-slideshow-nav">
+    <button type="button" class="btn-site-sm" id="mvpPrev">Previous</button>
+    <button type="button" class="btn-site-sm" id="mvpNext">Next</button>
+  </div>
+</div>
+
+
+
+<p><strong>Going forward:</strong></p>
+<ul>
+  <li>Expand from 4 columns to 8</li>
+  <li>Integrate everything into a single, uniform frame with dedicated marble pathways</li>
+  <li>Replace the Scotch yoke with a rack-and-pinion system (still servo-driven)</li>
+  <li>Switch from potentiometer control to Bluetooth</li>
+</ul>
+
+<p><strong>Where I could use some help:</strong></p>
+<ul>
+  <li>There is significant friction in the dropper. Would using two rack-and-pinion systems 
+      (one on each side) help, or should I focus on reducing friction through alignment or 
+      lubrication?</li>
+  <li>With the removal of potentiometers, I have an opportunity to introduce new sensors. I am 
+      considering a photoresistor at the top to detect when a marble enters the dropper, though 
+      a capacitive sensor could also work. Are there better sensor options for this use case?</li>
+  <li>What is the best way to ensure consistent timing and spacing between marbles as they move 
+      from the elevator into the dropper? Right now, slight variations in speed or positioning 
+      sometimes cause misalignment.</li>
+</ul>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  /* Simple slideshow (same idea as W3Schools “How TO - Slideshow”): one slide visible via style.display. */
+  (function () {
+    var root = document.getElementById("mvpSlideshow");
+    if (!root) return;
+
+    var slides = root.querySelectorAll(".mvp-slide");
+    if (!slides.length) return;
+
+    var slideIndex = 1;
+    var prevBtn = document.getElementById("mvpPrev");
+    var nextBtn = document.getElementById("mvpNext");
+    if (!prevBtn || !nextBtn) return;
+
+    function showSlides() {
+      var i;
+      if (slideIndex > slides.length) slideIndex = 1;
+      if (slideIndex < 1) slideIndex = slides.length;
+
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+        var v = slides[i].querySelector("video");
+        if (v) {
+          v.pause();
+          try {
+            v.currentTime = 0;
+          } catch (e) {}
+        }
+      }
+
+      slides[slideIndex - 1].style.display = "block";
+      var active = slides[slideIndex - 1].querySelector("video");
+      if (active) active.play().catch(function () {});
+    }
+
+    function plusSlides(n) {
+      slideIndex += n;
+      showSlides();
+    }
+
+    prevBtn.addEventListener("click", function () {
+      plusSlides(-1);
+    });
+    nextBtn.addEventListener("click", function () {
+      plusSlides(1);
+    });
+
+    showSlides();
+  })();
+</script>
 </body>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
-
 </html>
