@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PS70: Intro to Digital Fabrication</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../style.css" rel="stylesheet">
+</head>
+
+<body>
+<nav class="navbar navbar-expand-sm navbar-dark" style="color: #EEE7E8;">
+  <div style="align-items: center; justify-content: center;" class="container-fluid">
+    <div class="flexrow">
+      <h2 class="nav-title">PS70 Spring 2026</h2>
+    </div>
+    <div class="navbar-nav">
+      <h4><a class="nav-link" href="../index.html">Home</a></h4>
+      <h4><a class="nav-link" href="../about.html">About</a></h4>
+    </div>
+  </div>
+</nav>
+
+<div class="textcontainer">
+<p class="margin">   </p>
+
+<p class="hub-back"><a href="index.html" class="btn-site-sm">← Back to Final Project</a></p>
+
+<h3>Final Project: Marble Tracker</h3>
+<br>
+
+<!-- ── Section 1: Intro / Core Idea — text left, media right ── -->
+<div class="split">
+  <div class="split-text">
+    <p>
+      Hey there! Welcome to the documentation for Marble Tracker, my final project.
+    </p>
+
+    <p>
+      Firstly, here's where things stand after MVP and Integrated Project weeks.
+    </p>
+
+    <p>
+      The core idea: A mechanical scoreboard that keeps track of 'things' with marbles. It will integrate
+      a <em>dropper mechanism</em> at the top with a <em>connect-4 slider</em> to hold the marbles in place and an
+      <em>Archimedes screw elevator</em> to lift the marbles to the top and a <em>photoresistor at the top</em> that
+      will capture when the marble has fallen into one of the <em>columns</em>. 
+    </p>
+  </div>
+  <div class="split-media">
+    <div id="mvpSlideshow" class="mvp-slideshow mvp-slideshow-fixed" aria-label="MVP and integrated materials versions">
+      <div class="mvp-slide">
+        <img src="assets/intro-mvp-week.png" alt="Functioning version from MVP week">
+        <div class="slide-caption">Functioning Version from MVP Week</div>
+      </div>
+      <div class="mvp-slide">
+        <img src="assets/intro-integrated-week.png" alt="Accurately sized version from integrated materials week">
+        <div class="slide-caption">Accurately Sized Version from Integrated Materials Week</div>
+      </div>
+      <div class="mvp-slide">
+        <img src="assets/intro-final-version.png" alt="Final version working">
+        <div class="slide-caption">Eventual Final Version Working</div>
+      </div>
+      <div class="mvp-slideshow-nav">
+        <button type="button" class="btn-site-sm" id="mvpPrev">Previous</button>
+        <button type="button" class="btn-site-sm" id="mvpNext">Next</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Section 2: Fusion tweaks — media left, text right (flip) ── -->
+<div class="split flip">
+  <div class="split-media">
+    <div id="fusionSlideshow" class="mvp-slideshow mvp-slideshow-fixed" aria-label="Fusion model progression">
+      <div class="mvp-slide">
+        <iframe src="https://college1042.autodesk360.com/shares/public/SH28cd1QT2badd0ea72b5b40a915201c2eff?mode=embed"
+                title="Final Fusion Mockup"
+                allowfullscreen></iframe>
+        <div class="slide-caption">Final Fusion Mockup</div>
+      </div>
+      <div class="mvp-slide">
+        <iframe src="https://college1042.autodesk360.com/shares/public/SH28cd1QT2badd0ea72bbcdec2617801d753?mode=embed"
+                title="Initial Fusion Mockup"
+                allowfullscreen></iframe>
+        <div class="slide-caption">Initial Fusion Mockup</div>
+      </div>
+      <div class="mvp-slide">
+        <img src="assets/fusion-sweep-1.png" alt="Screenshot of Sweep #1">
+        <div class="slide-caption">Screenshot of Sweep #1</div>
+      </div>
+      <div class="mvp-slide">
+        <img src="assets/fusion-sweep-2.png" alt="Screenshot of Sweep #2">
+        <div class="slide-caption">Screenshot of Sweep #2</div>
+      </div>
+      <div class="mvp-slideshow-nav">
+        <button type="button" class="btn-site-sm" id="fusionPrev">Previous</button>
+        <button type="button" class="btn-site-sm" id="fusionNext">Next</button>
+      </div>
+    </div>
+  </div>
+  <div class="split-text">
+    <h4>And now here's what's happened since:</h4>
+    <p>
+      I tweaked the Fusion Model SO SO SO much. My main considerations were minimizing the height of
+      the screw elevator while also minimizing the horizontal distance between the two sides. This
+      required a lot of geometric math (I even temporarily gaslighted myself into believing that a
+      rod could sweep out an oval 🤦‍♂️) but ended up coming out really nicely.
+    </p>
+    <p>
+      I also moved the holes in each column upwards so that there was more space to store marbles
+      under the connect-4 piece for when this eventually becomes a super popular product such that
+      its users won't opt into the manual method of placing marbles by reaching around back.
+    </p>
+    <p>
+      Also a million other things kept breaking in the Fusion Model (nibs on the side, column
+      pathways, rounded shape of the bottom) but my main takeaway from this step was that the
+      <strong>SWEEP TOOL</strong> is easily the best feature in all of Fusion. :)
+    </p>
+    <p>Check out the progression of my Fusion models for this project!</p>
+  </div>
+</div>
+
+<!-- ── Section 3: CNC frame — text left, media right ── -->
+<div class="split">
+  <div class="split-text">
+    <h4>I CNC'd the Frame with help from Bobby</h4>
+    <p>
+      The thickness I wanted was strength so I used the pullsaw + glued pieces of MDF to achieve it.
+      Yea… So he helped me with the right half, and then I did the left by myself! And considering
+      that it's 90% the same, I've declared the CNCing step a massive success. It took about an hour
+      though. For <em>EACH</em> side.
+    </p>
+    <p>
+      When the machine finally finished it looked awesome and the MDF was super strong so I loved
+      the ShopBot. (foreshadowing).
+    </p>
+  </div>
+  <div class="split-media">
+    <div id="cncSlideshow" class="mvp-slideshow mvp-slideshow-fixed" aria-label="ShopBot CNC photos">
+      <div class="mvp-slide">
+        <video controls muted playsinline>
+          <source src="assets/shopbot-working.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="slide-caption">ShopBot Working!</div>
+      </div>
+      <div class="mvp-slide">
+        <img src="assets/shopbot-screen.png" alt="ShopBot control screen">
+        <div class="slide-caption">ShopBot Screen</div>
+      </div>
+      <div class="mvp-slide">
+        <img src="assets/shopbot-inside-outside.png" alt="Inside vs. outside cutting on the ShopBot">
+        <div class="slide-caption">Inside vs. Outside Cutting lol</div>
+      </div>
+      <div class="mvp-slideshow-nav">
+        <button type="button" class="btn-site-sm" id="cncPrev">Previous</button>
+        <button type="button" class="btn-site-sm" id="cncNext">Next</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Section 4: Sawdust regret — media left, text right (flip) ── -->
+<div class="split flip">
+  <div class="split-media">
+    <div id="sawdustSlideshow" class="mvp-slideshow mvp-slideshow-fixed" aria-label="Sawdust and painted frame photos">
+      <div class="mvp-slide">
+        <img src="assets/sawdust-paint-black.png" alt="Frame painted black">
+        <div class="slide-caption">Paint it, Black</div>
+      </div>
+      <div class="mvp-slide">
+        <img src="assets/sawdust-with-sawdust.png" alt="Frame with sawdust">
+        <div class="slide-caption">With Sawdust</div>
+      </div>
+      <div class="mvp-slide">
+        <img src="assets/sawdust-column-broken.png" alt="Frame with sawdust and snapped column divider">
+        <div class="slide-caption">Still with Sawdust, now without column divider</div>
+      </div>
+      <div class="mvp-slideshow-nav">
+        <button type="button" class="btn-site-sm" id="sawdustPrev">Previous</button>
+        <button type="button" class="btn-site-sm" id="sawdustNext">Next</button>
+      </div>
+    </div>
+  </div>
+  <div class="split-text">
+    <h4>Actually, I did not like the ShopBot.</h4>
+    <p>
+      The columns were warped (some too big, some too small — likely because of kerf and MDF
+      unevenness) but this wasn't an immediate problem, so I kicked it down the road to the
+      version of Gabe the day before his 21B exam.
+    </p>
+    <p>
+      There also was SO SO SO much sawdust attached to the bottom of the MDF which I deliberated
+      on for a while. With hindsight, I really wish that I'd either redesigned the frame into a
+      negative and casted it or redone the CNC on foam, however with the whole lost-cost of 2
+      hours of CNCing behind me, I decided to continue with the super saw-dusty frame and use a
+      chisel to get the sawdust out.
+    </p>
+    <p>
+      Unfortunately, the chisel idea worked pretty poorly and I snapped the walls of one of the
+      columns (replaced with lasercut wood), and wasn't able to get very much sawdust off. I
+      considered washing it but wasn't sure how the wood would hold up. So instead, I thought,
+      <em>What would the Rolling Stones do?</em>
+    </p>
+  </div>
+</div>
+
+<!-- ── Section 5: Base — text left, media right ── -->
+<div class="split">
+  <div class="split-text">
+    <h4>Making the Base</h4>
+    <p>
+      With hindsight, I've come to see that the base really is the most important part of a
+      mechanical contraption. It helps with housing the electronics, making sure everything is
+      aligned (which is important with a marble apparatus), and generally making the overall
+      project more organized. However, after my newfound fear of the CNC machine and confidence
+      that nothing except wood or foam would support the MDF, I decided to use foam, duct-tape,
+      the bandsaw, and a dream to make the base of my Tracker.
+    </p>
+    <p>
+      First, I made a lot of measurements with calipers (also an S tier tool). Then tested out
+      different ball controlling pathway styles. Then cut, taped, and glued the elevator and the
+      frame to the base.
+    </p>
+  </div>
+  <div class="split-media">
+    <div id="baseSlideshow" class="mvp-slideshow mvp-slideshow-fixed" aria-label="Base construction photos">
+      <div class="mvp-slide">
+        <video controls muted playsinline>
+          <source src="assets/base-construction-video.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="slide-caption">Base Video</div>
+      </div>
+      <div class="mvp-slide">
+        <img src="assets/base-foam-marble-holder.png" alt="Foam marble holder">
+        <div class="slide-caption">Foam Marble Holder</div>
+      </div>
+      <div class="mvp-slideshow-nav">
+        <button type="button" class="btn-site-sm" id="basePrev">Previous</button>
+        <button type="button" class="btn-site-sm" id="baseNext">Next</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Section 6: 3D Printing — media left, text right (flip) ── -->
+<div class="split flip">
+  <div class="split-media">
+    <div id="printingSlideshow" class="mvp-slideshow mvp-slideshow-fixed" aria-label="3D printing models and finals">
+      <div class="mvp-slide">
+        <iframe src="https://college1042.autodesk360.com/shares/public/SH28cd1QT2badd0ea72bdd12168c0018ac1b?mode=embed"
+                title="Rack and Pinion Model"
+                allowfullscreen></iframe>
+        <div class="slide-caption">Rack &amp; Pinion Model</div>
+      </div>
+      <div class="mvp-slide">
+        <img src="assets/printing-rack-pinion-nibs.png" alt="Rack and pinion nibs">
+        <div class="slide-caption">Rack &amp; Pinion Nibs</div>
+      </div>
+      <div class="mvp-slide">
+        <video controls muted playsinline>
+          <source src="assets/printing-rack-pinion-working.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="slide-caption">Rack and Pinion Working</div>
+      </div>
+      <div class="mvp-slide">
+        <img src="assets/printing-drill-press.png" alt="Using the drill press">
+        <div class="slide-caption">Drill Pressing</div>
+      </div>
+      <div class="mvp-slide">
+        <img src="assets/printing-marble-holder-rack-rest.png" alt="Marble holder with resting place for rack">
+        <div class="slide-caption">Marble Holder with Resting Place for Rack</div>
+      </div>
+      <div class="mvp-slide">
+        <video controls muted playsinline>
+          <source src="assets/printing-tpu-pressfit.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="slide-caption">TPU Pressfit Printing</div>
+      </div>
+      <div class="mvp-slide">
+        <iframe src="https://college1042.autodesk360.com/shares/public/SH28cd1QT2badd0ea72b70622afe847ba715?mode=embed"
+                title="Dropper Model"
+                allowfullscreen></iframe>
+        <div class="slide-caption">Dropper Model</div>
+      </div>
+      <div class="mvp-slide">
+        <img src="assets/printing-dropper-pla-final.png" alt="Final PLA dropper">
+        <div class="slide-caption">PLA Final</div>
+      </div>
+      <div class="mvp-slide">
+        <iframe src="https://college1042.autodesk360.com/shares/public/SH28cd1QT2badd0ea72bc63ca86f7496991c?mode=embed"
+                title="Predropper House Model"></iframe>
+        <div class="slide-caption">Predropper House Model</div>
+      </div>
+      <div class="mvp-slide">
+        <img src="assets/printing-predropper-house-final.png" alt="Final predropper house">
+        <div class="slide-caption">Predropper House Final</div>
+      </div>
+      <div class="mvp-slideshow-nav">
+        <button type="button" class="btn-site-sm" id="printingPrev">Previous</button>
+        <button type="button" class="btn-site-sm" id="printingNext">Next</button>
+      </div>
+    </div>
+  </div>
+  <div class="split-text">
+    <h4>3D Printing</h4>
+    <p>
+      In a switchup from the MVP, I switched from a Scottish Yoke to a Rack &amp; Pinion system
+      for holding the marbles in the machine. This was mainly due to the Rack &amp; Pinion having
+      way less friction and way more reliability. The Rack &amp; Pinion mechanism with a press-fit
+      onto the servo motor, fit perfectly on the first try. The holder, though, took 2 prints and
+      required me using the drill press to make sure that all the guiding holes were an appropriate
+      size. Also when designing for the Rack &amp; Pinion, I included nibs on the side of the frame
+      which proved indispensable in actually guiding the holder.
+    </p>
+    <p>
+      Another important 3D print was the press-fit dropper. I printed this twice: once out of clear
+      TPU cause I thought it would look cool, but it broke. And then again out of PLA but with a
+      thin roof. The roof also broke (see model). Yet, at this point, I figured it was still
+      functional enough to attach to the project… and this ended up being super lucky because of
+      the implications of using a smaller marble than expected.
+    </p>
+    <p>
+      The pre-dropper house. At the top of the elevator I 3D printed a "settler" that would force
+      the marble to stop rolling around and come out consistently. Eventually, I would also put a
+      constantly-calibrating LDR inside of it so that I could monitor when a marble had dropped
+      through it. This system worked great when using 16mm marbles which rolled off the Archimedes
+      elevator into it, but not so well with the 14mm marbles which missed the forcer dowel and
+      went all the way to the top of the Archimedes screw before falling into the roofless dropper,
+      missing the LDR.
+    </p>
+  </div>
+</div>
+
+<!-- ── Section 7: Hot Glue — text left, media right ── -->
+<div class="split">
+  <div class="split-text">
+    <h4>Hot Glue!</h4>
+    <p>
+      Given that the base was made imprecisely, aligning the dropper with the columns required
+      lots of hot glue. This process involved positioning everything correctly, marking dowels,
+      cutting the dowels, and then using the dowels to hold everything in position.
+    </p>
+    <p>
+      I also used hot glued dowels to hold the ends of the marble Rack &amp; Pinion holders.
+    </p>
+    <p>
+      I also used hot glue to attach plastic wrap as the front cover. Initially the plan had been
+      clear acrylic, but Bobby said the lab was all out… so I stuck with plastic wrap. This ended
+      up being a lucky choice because it made troubleshooting (i.e. taking marbles out of the
+      machine) a lot easier!
+    </p>
+  </div>
+  <div class="split-media">
+    <div id="hotglueSlideshow" class="mvp-slideshow mvp-slideshow-fixed" aria-label="Hot glue and dowel photos">
+      <div class="mvp-slide">
+        <img src="assets/hotglue-dowels-back.png" alt="Dowels on the back">
+        <div class="slide-caption">Dowels on the back</div>
+      </div>
+      <div class="mvp-slide">
+        <img src="assets/hotglue-zoomed-wood.png" alt="Zoomed shot of wood">
+        <div class="slide-caption">Zoomed Shot of Wood</div>
+      </div>
+      <div class="mvp-slide">
+        <img src="assets/hotglue-plastic-front.png" alt="Plastic sheet on front">
+        <div class="slide-caption">Plastic Sheet on Front</div>
+      </div>
+      <div class="mvp-slideshow-nav">
+        <button type="button" class="btn-site-sm" id="hotgluePrev">Previous</button>
+        <button type="button" class="btn-site-sm" id="hotglueNext">Next</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Section 8: Wiring — media left, text right (flip) ── -->
+<div class="split flip">
+  <div class="split-media">
+    <div id="wiringSlideshow" class="mvp-slideshow mvp-slideshow-fixed" aria-label="Wiring photos">
+      <div class="mvp-slide">
+        <img src="assets/wiring-exposed-back.png" alt="Exposed wiring on the back">
+        <div class="slide-caption">Exposed Back</div>
+      </div>
+      <div class="mvp-slide">
+        <video controls muted playsinline>
+          <source src="assets/wiring-voltmeter.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="slide-caption">Finding current where there should not be with voltmeter</div>
+      </div>
+      <div class="mvp-slideshow-nav">
+        <button type="button" class="btn-site-sm" id="wiringPrev">Previous</button>
+        <button type="button" class="btn-site-sm" id="wiringNext">Next</button>
+      </div>
+    </div>
+  </div>
+  <div class="split-text">
+    <h4>Wiring!</h4>
+    <p>
+      Honestly, by far the shockingly most smooth part of the process. There was one broken motor
+      driver hiccup for the DC motor that the Archimedes elevator used, but everything else
+      (3 servos, LDR) worked great on the first try! <s>If</s> When I do it again, I <s>would</s>
+      will definitely focus more on housing for the wires because the current wiring still looks
+      super chaotic. I think tubing would do wonders. I did use heat-shrink wire covers for wiring
+      to the DC motor and LDR though.
+    </p>
+  </div>
+</div>
+
+<!-- ── Section 9: Code — text left, media right ── -->
+<div class="split">
+  <div class="split-text">
+    <h4>Code</h4>
+    <p>
+      I programmed each of the holder servos with "open" and "closed" positions, and the dropper
+      servo with a mapper to aim towards the columns 1–8. I also set up the LDR to calibrate
+      on-start, as well as with a websocket command.
+    </p>
+    <p>
+      The XIAO-ESP32C3 connects with websockets to a python backend that I used ChatGPT to
+      program which:
+    </p>
+    <ul>
+      <li>Uses Spotify &amp; Strava API to award a marble to myself or my blockmates depending
+        on whoever has the most miles and music each day.</li>
+      <li>Clears at the end of the week.</li>
+      <li>Has an alternative setting (live at showcase day) that uses the marble tracker as a
+        simple live scoreboard for a trivia game with AI generated questions.</li>
+    </ul>
+  </div>
+  <div class="split-media">
+    <div id="codeSlideshow" class="mvp-slideshow mvp-slideshow-fixed" aria-label="Code and interface screenshots">
+      <div class="mvp-slide">
+        <pre class="code-block code-scroll code-scroll-carousel"><code id="esp32MarbleCode" class="language-cpp">Loading Arduino code…</code></pre>
+        <div class="slide-caption">Arduino Code</div>
+      </div>
+      <div class="mvp-slide">
+        <pre class="code-block code-scroll code-scroll-carousel"><code id="pythonMainCode" class="language-html">Loading Python control panel…</code></pre>
+        <div class="slide-caption">Python Backend main.py</div>
+      </div>
+      <div class="mvp-slideshow-nav">
+        <button type="button" class="btn-site-sm" id="codePrev">Previous</button>
+        <button type="button" class="btn-site-sm" id="codeNext">Next</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Section 10: Reflection (full width) ── -->
+<h4>Reflection</h4>
+<p>
+  <strong>What I would change:</strong> Fabricate a base to avoid alignment and wire housing
+  issues, use foam instead of MDF to avoid warping issues, use a clear acrylic front instead of
+  plastic wrap because it would look cleaner, and a servo motor at the top of the Archimedes screw
+  so that the program has full control over whether a marble can drop.
+</p>
+<p>
+  <strong>What I learned:</strong> How to use the ShopBot independently, how to design to scale
+  with the 3D printers, how to model an Archimedes screw, how to integrate motors with a
+  microcontroller with a python webserver, how to use a Scottish Yoke, how to use a drill press,
+  how to make a Rack &amp; Pinion, why prototyping with duct tape and glue can be a great idea
+  (to know what to model so I don't waste time), why prototyping with duct tape and glue can be a
+  bad idea (imprecise, misleading impressions of what can/can't be fixed).
+</p>
+<p>
+  <strong>What I'm proud of:</strong> All in all, I'm extraordinarily proud of having conceived
+  an idea, planned out its execution completely on tools that I'd learned in the preceding
+  months, and then executed on the plan by making it wholly functional and having genuine ideas
+  about how to improve upon it because every aspect of its design was an intentional design
+  decision on my behalf.
+</p>
+
+<!-- ── Section 11: Additional photos and videos ── -->
+<h4 class="additional-media-heading">Additional photos and videos:</h4>
+<div class="additional-media-gallery">
+  <video autoplay muted loop playsinline preload="auto">
+    <source src="assets/additional-video-1.mp4" type="video/mp4">
+  </video>
+  <video autoplay muted loop playsinline preload="auto">
+    <source src="assets/additional-video-2.mp4" type="video/mp4">
+  </video>
+  <video autoplay muted loop playsinline preload="auto">
+    <source src="assets/additional-video-3.mp4" type="video/mp4">
+  </video>
+  <img src="assets/additional-photo-1.png" alt="Additional photo 1">
+  <img src="assets/additional-photo-2.png" alt="Additional photo 2">
+  <img src="assets/additional-photo-3.png" alt="Additional photo 3">
+  <img src="assets/additional-photo-4.png" alt="Additional photo 4">
+  <img src="assets/additional-photo-5.png" alt="Additional photo 5">
+  <img src="assets/additional-photo-6.png" alt="Additional photo 6">
+</div>
+
+<p class="margin">   </p>
+
+</div><!-- /textcontainer -->
+
+<script src="../media.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.11.1/lib/highlight.min.js"></script>
+<script src="../slideshow.js"></script>
+<script>
+  PS70Slideshow.initAll([
+    { root: "mvpSlideshow", prev: "mvpPrev", next: "mvpNext" },
+    { root: "fusionSlideshow", prev: "fusionPrev", next: "fusionNext" },
+    { root: "cncSlideshow", prev: "cncPrev", next: "cncNext" },
+    { root: "sawdustSlideshow", prev: "sawdustPrev", next: "sawdustNext" },
+    { root: "baseSlideshow", prev: "basePrev", next: "baseNext" },
+    { root: "printingSlideshow", prev: "printingPrev", next: "printingNext" },
+    { root: "hotglueSlideshow", prev: "hotgluePrev", next: "hotglueNext" },
+    { root: "wiringSlideshow", prev: "wiringPrev", next: "wiringNext" },
+    { root: "codeSlideshow", prev: "codePrev", next: "codeNext" }
+  ]);
+  PS70Slideshow.initCodeBlocks();
+
+  fetch("assets/esp32-marble-machine.ino")
+    .then(function (r) { return r.text(); })
+    .then(function (text) {
+      var el = document.getElementById("esp32MarbleCode");
+      if (!el) return;
+      el.textContent = text;
+      if (window.hljs) {
+        try { window.hljs.highlightElement(el); } catch (e) {}
+      }
+    })
+    .catch(function () {
+      var el = document.getElementById("esp32MarbleCode");
+      if (el) el.textContent = "Could not load esp32-marble-machine.ino";
+    });
+
+  fetch("assets/python-control-panel.html")
+    .then(function (r) { return r.text(); })
+    .then(function (text) {
+      var el = document.getElementById("pythonMainCode");
+      if (!el) return;
+      el.textContent = text;
+      if (window.hljs) {
+        try { window.hljs.highlightElement(el); } catch (e) {}
+      }
+    })
+    .catch(function () {
+      var el = document.getElementById("pythonMainCode");
+      if (el) el.textContent = "Could not load python-control-panel.html";
+    });
+</script>
+</body>
+</html>

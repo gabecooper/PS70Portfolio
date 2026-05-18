@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<head>
+<meta charset="utf-8">
 <title>PS70: Intro to Digital Fabrication </title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="../style.css" rel="stylesheet">
-
+</head>
 
 <nav class="navbar navbar-expand-sm navbar-dark" style=" color: #EEE7E8;">
   <div style="align-items: center; justify-content: center;" class="container-fluid">
@@ -72,13 +73,57 @@
       
 
 
-    </p> 
+    </p>
 
+    <hr>
 
+    <h4>5 / 17 / 26 - Updated!</h4>
+    <p>
+      While waiting for a 3D print in the lab (I made an ambigram for my grandpa leaving that morning), I decided to play with the 3D scanner by scanning my friend. This proved to be a significant challenge because the scanner hated her hair. We addressed this by giving her a conveniently placed sailors hat.
+    </p>
+    <p>
+      However, 3D printing proved to be extremely difficult too. I compressed the file as much as I could figure out how to in the scanner software (given that it was 4:30am, this was not a lot), and then revisited the project in Fusion later on using tools like Repair, Reduce, and Scale to have it approach a reasonable physical size and file size. Each action took like 15 minutes, and Fusion crashed 4 times throughout this process. Turning to Claude yielded suggestions like "try Blender," but eventually through sheer luck I was able to get Fusion to fill the holes in the mesh file and shrink it enough to make the print workable. Also, I got very lucky that organic supports in Fusion totally augmented this print and gave the whole thing enough substance to come out very nice!
+    </p>
+    <p><strong>Check out the results!</strong></p>
+
+    <div id="scanUpdateSlideshow" class="mvp-slideshow mvp-slideshow-fixed" aria-label="Friend scan and print results">
+      <div class="mvp-slide">
+        <video controls muted playsinline>
+          <source src="assets/week5-ambigram-papa.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <div class="slide-caption">Ambigram for Papa</div>
+      </div>
+      <div class="mvp-slide">
+        <img src="assets/week5-scan-ari-before.png">
+        <div class="slide-caption">Ari Before</div>
+      </div>
+      <div class="mvp-slide">
+        <img src="assets/week5-scanned-ari.png" alt="Scanned Ari">
+        <div class="slide-caption">Scanned Ari</div>
+      </div>
+      <div class="mvp-slide">
+        <img src="assets/week5-scan-prusa-supports.png" >
+        <div class="slide-caption">On Prusa, with supports.</div>
+      </div>
+      <div class="mvp-slide">
+        <img src="assets/week5-scan-done.png">
+        <div class="slide-caption">Done!</div>
+      </div>
+      <div class="mvp-slideshow-nav">
+        <button type="button" class="btn-site-sm" id="scanUpdatePrev">Previous</button>
+        <button type="button" class="btn-site-sm" id="scanUpdateNext">Next</button>
+      </div>
+    </div>
 
 </div>
 </body>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
+<script src="../media.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../slideshow.js"></script>
+<script>
+  PS70Slideshow.init("scanUpdateSlideshow", "scanUpdatePrev", "scanUpdateNext");
+</script>
 
 </html>

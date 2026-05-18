@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<title>PS70: Intro to Digital Fabrication </title>
+<head>
+<meta charset="utf-8">
+<title>PS70: Intro to Digital Fabrication</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="../style.css" rel="stylesheet">
-
+</head>
 
 <nav class="navbar navbar-expand-sm navbar-dark" style=" color: #EEE7E8;">
   <div style="align-items: center; justify-content: center;" class="container-fluid">
@@ -25,21 +26,135 @@
 <h3>Week 9: Radio, WiFi, Bluetooth (IoT)</h3>
 
 
-<p class="margin">   </p>
-<div class="flexrow">
-  <a id="btn" href="wk9.zip" download>Download my files from this week!
-  </a>
+<p>
+  I'm super proud of my IOT week because it felt like everything came together to make this super high-quality project fly by. First, I modeled my "meter" in Fusion. This came out perfectly on my first try! That never happens! See carousel for images and Fusion screenshots.
+</p>
+
+<p>
+  Then, I press-fit the Servo motor into the device and glued it all together using hot glue. Then, incidentally, I smashed the thing to pieces while traveling back home across the country… anyways but now it's back in one piece!
+</p>
+
+<p>
+  Now, I put the text "Meter?" on the meter because I was unsure what I was going to measure with it. Initially, my idea was temperature since the API was super easy and free and my code could map all temperatures from (0-100) to 0 - 180 for me to display on the meter through websockets which I choose because it is the most simplest way for me to test things rapidly with my computer and hardware. However, eventually I settled on Kalshi odds since a) Kalshi's API is super duper easy and b) everything is already normalized 0% to 100% so once I set it up once for one market, (angle = int(90 - prob * 1.8)), it should work for whichever market I select later on. For the demo video, though, it is displaying the odds that the Lions win the super bowl. This will be a good one to keep it on, I suspect, as the meter should continue to tick upwards through the year.
+</p>
+
+<p>
+  Furthermore, given that a requirement of this assignment was to use an input sensor as well and the only input sensor at home with me is an LDR, I also used the "Meter?" to display LDR values in realtime (video &amp; code also in carousel). This didn't require any IOT though
+</p>
+
+<div id="week9Slideshow" class="mvp-slideshow mvp-slideshow-fixed" aria-label="IoT meter project photos, videos, and code">
+  <div class="mvp-slide">
+    <img src="assets/week9-meter-parts.png" alt="Laser-cut meter parts and servo">
+    <div class="slide-caption">Laser-cut meter parts and &ldquo;Meter?&rdquo; label</div>
+  </div>
+  <div class="mvp-slide">
+    <img src="assets/week9-meter-assembled.png" alt="Assembled Meter dial with servo">
+    <div class="slide-caption">Assembled &ldquo;Meter?&rdquo; dial with servo press-fit</div>
+  </div>
+  <div class="mvp-slide">
+    <video controls muted playsinline>
+      <source src="assets/week9-kalshi-demo.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="slide-caption">Demo Video</div>
+  </div>
+  <div class="mvp-slide">
+    <video controls muted playsinline>
+      <source src="assets/week9-ldr-demo.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div class="slide-caption">LDR realtime display on meter</div>
+  </div>
+  <div class="mvp-slide">
+    <pre class="code-block code-scroll code-scroll-carousel"><code class="language-cpp">#include &lt;WiFi.h&gt;
+#include &lt;WebSocketsServer.h&gt;
+#include &lt;ESP32Servo.h&gt;
+
+const char* SSID     = "Cooper Secure";
+const char* PASSWORD = "***";
+const int   SERVO_PIN = D2;
+
+WebSocketsServer webSocket(81);
+Servo myServo;
+
+void onEvent(uint8_t num, WStype_t type, uint8_t* payload, size_t length) {
+  if (type == WStype_TEXT) {
+    int angle = atoi((char*)payload);          // -90 to 90
+    myServo.write(angle + 90);                  // shift to 0-180 for servo
+    Serial.printf("Got %d -&gt; servo %d\n", angle, angle + 90);
+  }
+}
+
+
+
+void setup() {
+  Serial.begin(115200);
+  myServo.attach(SERVO_PIN);
+  myServo.write(90);                            // start centered
+
+  WiFi.begin(SSID, PASSWORD);
+  while (WiFi.status() != WL_CONNECTED) { delay(500); Serial.print("."); }
+  Serial.println();
+  Serial.println(WiFi.localIP());               // note the IP it prints
+
+  webSocket.begin();
+  webSocket.onEvent(onEvent);
+}
+
+void loop() {
+  webSocket.loop();
+}</code></pre>
+    <div class="slide-caption">Websocket ESP32 Code</div>
+  </div>
+  <div class="mvp-slide">
+    <pre class="code-block code-scroll code-scroll-carousel"><code class="language-python">import time
+import requests
+from websocket import create_connection
+
+ESP32_IP       = "10.0.1.61"
+WEBSOCKET_PATH = "/ws"
+WS_PORT        = 81
+
+KALSHI_URL = "https://external-api.kalshi.com/trade-api/v2/markets?event_ticker=KXSB-27&amp;limit=100"
+
+def lions_probability():
+    data = requests.get(KALSHI_URL).json()
+    for m in data["markets"]:
+        if "Detroit" in m.get("yes_sub_title", "") or "Lions" in m.get("yes_sub_title", ""):
+            return float(m["yes_bid_dollars"]) * 100   # 0.05 -&gt; 5.0
+    return 0.0
+
+ws = create_connection(f"ws://{ESP32_IP}:{WS_PORT}{WEBSOCKET_PATH}")
+
+while True:
+    try:
+        prob = lions_probability()
+        angle = int(90 - prob * 1.8)              # 0% -&gt; -90, 100% -&gt; +90
+        ws.send(str(angle))
+        print(f"Lions: {prob:.1f}%  -&gt;  {angle}°")
+    except Exception as e:
+        print(f"Error: {e} — reconnecting")
+        try: ws = create_connection(f"ws://{ESP32_IP}:{WS_PORT}{WEBSOCKET_PATH}")
+        except: pass
+    time.sleep(60)</code></pre>
+    <div class="slide-caption">Python Kalshi Websocket Client</div>
+  </div>
+  <div class="mvp-slideshow-nav">
+    <button type="button" class="btn-site-sm" id="week9Prev">Previous</button>
+    <button type="button" class="btn-site-sm" id="week9Next">Next</button>
+  </div>
 </div>
-<p class="margin">   </p>
-
-<h4>Assignment: [Program something with IOT]</h4>
-
-
-
 
 </div>
 </body>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
+<script src="../media.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@11.11.1/lib/highlight.min.js"></script>
+<script src="../slideshow.js"></script>
+<script>
+  PS70Slideshow.initCodeBlocks();
+  PS70Slideshow.init("week9Slideshow", "week9Prev", "week9Next");
+</script>
 
 </html>

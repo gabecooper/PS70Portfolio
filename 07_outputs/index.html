@@ -171,56 +171,11 @@ servo2.writeAngle(angle2);
 </ul>
 </div>
 
+<script src="../media.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../slideshow.js"></script>
 <script>
-  /* Simple slideshow (same idea as W3Schools “How TO - Slideshow”): one slide visible via style.display. */
-  (function () {
-    var root = document.getElementById("mvpSlideshow");
-    if (!root) return;
-
-    var slides = root.querySelectorAll(".mvp-slide");
-    if (!slides.length) return;
-
-    var slideIndex = 1;
-    var prevBtn = document.getElementById("mvpPrev");
-    var nextBtn = document.getElementById("mvpNext");
-    if (!prevBtn || !nextBtn) return;
-
-    function showSlides() {
-      var i;
-      if (slideIndex > slides.length) slideIndex = 1;
-      if (slideIndex < 1) slideIndex = slides.length;
-
-      for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-        var v = slides[i].querySelector("video");
-        if (v) {
-          v.pause();
-          try {
-            v.currentTime = 0;
-          } catch (e) {}
-        }
-      }
-
-      slides[slideIndex - 1].style.display = "block";
-      var active = slides[slideIndex - 1].querySelector("video");
-      if (active) active.play().catch(function () {});
-    }
-
-    function plusSlides(n) {
-      slideIndex += n;
-      showSlides();
-    }
-
-    prevBtn.addEventListener("click", function () {
-      plusSlides(-1);
-    });
-    nextBtn.addEventListener("click", function () {
-      plusSlides(1);
-    });
-
-    showSlides();
-  })();
+  PS70Slideshow.init("mvpSlideshow", "mvpPrev", "mvpNext");
 </script>
 </body>
 </html>

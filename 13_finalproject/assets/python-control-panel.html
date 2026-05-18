@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Marble Machine — Control Panel</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0f1419;
+      --panel: #1a2332;
+      --border: #2d3a4d;
+      --text: #e8eef5;
+      --muted: #8b9cb3;
+      --accent: #3d9df5;
+      --danger: #f55353;
+      --ok: #3dd68c;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 1.25rem;
+    }
+    h1 { font-size: 1.25rem; margin: 0 0 0.25rem; font-weight: 600; }
+    .sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 1rem; }
+    .grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      align-items: start;
+    }
+    section {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem;
+    }
+    section h2 {
+      margin: 0 0 0.75rem;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    label { display: block; font-size: 0.8rem; color: var(--muted); margin-bottom: 0.25rem; }
+    input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 0.5rem 0.6rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #111822;
+      color: var(--text);
+      margin-bottom: 0.6rem;
+    }
+    .row { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+    button {
+      cursor: pointer;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #243044;
+      color: var(--text);
+      padding: 0.45rem 0.75rem;
+      font-size: 0.9rem;
+    }
+    button:hover { border-color: var(--accent); }
+    button.primary { background: #1f4d7a; border-color: #2a6cb0; }
+    button.danger { background: #4a2222; border-color: #8a3030; }
+    button:disabled { opacity: 0.45; cursor: not-allowed; }
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.9rem;
+      padding: 0.35rem 0.6rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: #111822;
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); }
+    .dot.on { background: var(--ok); box-shadow: 0 0 8px var(--ok); }
+    .dot.busy { background: #f5a623; }
+    .log {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+      font-size: 0.78rem;
+      background: #0b0f14;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.6rem;
+      height: 220px;
+      overflow: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+    .cmd-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 0.4rem; }
+    .hint { font-size: 0.8rem; color: var(--muted); margin-top: 0.5rem; }
+  </style>
+</head>
+<body>
+  <h1>Marble machine control panel</h1>
+  <p class="sub">Python <code>websockets</code> relay on a separate port; ESP32 target comes from <code>config.py</code> / env. <a href="/game.html">Game mode</a> (two-player quiz + marble rounds).</p>
+
+  <div class="grid">
+    <section>
+      <h2>Connection</h2>
+      <p id="targetLine" class="hint" style="margin-top:0;">Loading target…</p>
+      <div class="row">
+        <button type="button" class="primary" id="btnConnect">Connect</button>
+        <button type="button" class="danger" id="btnDisconnect" disabled>Disconnect</button>
+        <span class="status" id="connPill"><span class="dot" id="connDot"></span><span id="connText">Disconnected</span></span>
+      </div>
+      <p class="hint">Set <code>MARBLE_ESP32_HOST</code>, <code>MARBLE_ESP32_PORT</code>, <code>MARBLE_PANEL_HTTP_PORT</code>, <code>MARBLE_PANEL_WS_PORT</code> before starting the server.</p>
+    </section>
+
+    <section>
+      <h2>Quick commands</h2>
+      <div class="cmd-grid" id="quick"></div>
+      <p class="hint">Commands match your sketch: combined forms like <code>H:OPEN,M:25</code> work.</p>
+    </section>
+
+    <section>
+      <h2>Custom command</h2>
+      <label for="custom">Text to send</label>
+      <input id="custom" type="text" placeholder="e.g. T:3,M:OFF" />
+      <div class="row">
+        <button type="button" class="primary" id="btnSend" disabled>Send</button>
+        <button type="button" id="btnClear">Clear log</button>
+      </div>
+    </section>
+
+    <section style="grid-column: 1 / -1;">
+      <h2>Log</h2>
+      <div class="log" id="log"></div>
+      <p class="hint">Expect <code>ready</code> on connect, <code>done</code> after servos finish, <code>marble</code> when LDR triggers.</p>
+    </section>
+  </div>
+
+  <script>
+    const el = (id) => document.getElementById(id);
+    const logBox = el("log");
+    const targetLine = el("targetLine");
+    const btnConnect = el("btnConnect");
+    const btnDisconnect = el("btnDisconnect");
+    const btnSend = el("btnSend");
+    const btnClear = el("btnClear");
+    const customInput = el("custom");
+    const connDot = el("connDot");
+    const connText = el("connText");
+
+    function logLine(msg) {
+      const t = new Date().toISOString().split("T")[1].replace("Z", "");
+      logBox.textContent += "[" + t + "] " + msg + "\n";
+      logBox.scrollTop = logBox.scrollHeight;
+    }
+
+    function setConnected(on) {
+      btnConnect.disabled = on;
+      btnDisconnect.disabled = !on;
+      btnSend.disabled = !on;
+      connDot.classList.toggle("on", on);
+      connDot.classList.remove("busy");
+      connText.textContent = on ? "Connected" : "Disconnected";
+    }
+
+    function setBusy() {
+      connDot.classList.add("busy");
+      connText.textContent = "Connecting…";
+    }
+
+    let socket = null;
+    let panelWsUrl = "";
+
+    function connectUrl() {
+      if (!panelWsUrl) return "";
+      if (location.protocol === "https:" && panelWsUrl.startsWith("ws://")) {
+        return "wss://" + panelWsUrl.slice("ws://".length);
+      }
+      return panelWsUrl;
+    }
+
+    function sendRaw(text) {
+      if (!socket || socket.readyState !== WebSocket.OPEN) {
+        logLine("not connected");
+        return;
+      }
+      logLine(">> " + text);
+      socket.send(text);
+    }
+
+    btnConnect.addEventListener("click", () => {
+      const url = connectUrl();
+      if (!url) {
+        logLine("missing panel WebSocket URL — reload page");
+        return;
+      }
+      socket?.close();
+      setBusy();
+      socket = new WebSocket(url);
+      socket.addEventListener("open", () => {
+        logLine("browser socket open (relay to ESP32)");
+        setConnected(true);
+      });
+      socket.addEventListener("message", (ev) => logLine("<< " + ev.data));
+      socket.addEventListener("close", (ev) => {
+        logLine("closed (" + ev.code + ")");
+        setConnected(false);
+      });
+      socket.addEventListener("error", () => {
+        logLine("socket error");
+        setConnected(false);
+      });
+    });
+
+    btnDisconnect.addEventListener("click", () => {
+      socket?.close();
+      socket = null;
+      setConnected(false);
+    });
+
+    btnSend.addEventListener("click", () => {
+      const v = customInput.value.trim();
+      if (v) sendRaw(v);
+    });
+
+    customInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") btnSend.click();
+    });
+
+    btnClear.addEventListener("click", () => { logBox.textContent = ""; });
+
+    const presets = [
+      ["Motor on", "M:ON"],
+      ["Motor off", "M:OFF"],
+      ["Motor 25", "M:25"],
+      ["Motor -25", "M:-25"],
+      ["Holders open", "H:OPEN"],
+      ["Holders close", "H:CLOSE"],
+      ["Top 1", "T:1"],
+      ["Top 2", "T:2"],
+      ["Top 3", "T:3"],
+      ["Top 4", "T:4"],
+      ["Top 5", "T:5"],
+      ["Top 6", "T:6"],
+      ["Top 7", "T:7"],
+      ["Top 8", "T:8"],
+      ["Top home", "T:HOME"],
+      ["LDR calibrate", "C"],
+      ["Open + motor", "H:OPEN,M:ON"],
+      ["Top3 + stop", "T:3,M:OFF"],
+    ];
+
+    const grid = el("quick");
+    for (const [label, cmd] of presets) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.textContent = label;
+      b.addEventListener("click", () => sendRaw(cmd));
+      grid.appendChild(b);
+    }
+
+    (async () => {
+      try {
+        const r = await fetch("/config.json");
+        if (r.ok) {
+          const j = await r.json();
+          panelWsUrl = j.panelWebSocketUrl || "";
+          const esp = (j.esp32Ip || "?") + ":" + (j.esp32HttpPort || "80") + (j.espWebsocketPath || "/ws");
+          const sc = j.esp32CoordinateScale != null ? j.esp32CoordinateScale : "";
+          targetLine.textContent = "Panel relay: " + (panelWsUrl || "(none)") + " → ESP32 ws://" + esp + (sc !== "" ? "  (scale " + sc + ")" : "");
+        }
+      } catch (e) {
+        targetLine.textContent = "Could not load /config.json — open this page via the Python HTTP port.";
+      }
+    })();
+  </script>
+</body>
+</html>

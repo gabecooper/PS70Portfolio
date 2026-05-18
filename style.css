@@ -188,6 +188,44 @@ code {
   margin: 16px 0 24px 0;
 }
 
+.additional-media-heading {
+  text-align: left;
+  margin-top: 1.25rem;
+}
+
+.additional-media-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 260px);
+  gap: 0.65rem;
+  margin: 1rem 0 2rem;
+  width: 100%;
+}
+
+.additional-media-gallery img,
+.additional-media-gallery video {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  max-width: none;
+  object-fit: cover;
+  display: block;
+  border-radius: 4px;
+  background: #0a0a0a;
+}
+
+.additional-media-gallery > :first-child,
+.additional-media-gallery > :last-child {
+  object-fit: contain;
+  background: #000000;
+}
+
+@media (max-width: 768px) {
+  .additional-media-gallery {
+    grid-template-rows: repeat(3, 180px);
+  }
+}
+
 /* Chain clip: hide bottom 40% (top 60% visible); wrapper height trims layout */
 .chain-video-crop {
   display: inline-block;
@@ -250,11 +288,13 @@ code {
 
 .mvp-slide {
   display: none;
+  flex-direction: column;
+  align-items: center;
   box-sizing: border-box;
 }
 
 .mvp-slide:first-child {
-  display: block;
+  display: flex;
 }
 
 .mvp-slide video {
@@ -262,6 +302,45 @@ code {
   max-height: 400px;
   object-fit: contain;
   background: #000;
+}
+
+.mvp-slideshow-fixed {
+  width: 560px;
+  max-width: calc(100% - 2rem);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mvp-slideshow-fixed .mvp-slide img,
+.mvp-slideshow-fixed .mvp-slide video {
+  width: 100%;
+  height: 360px;
+  max-height: none;
+  object-fit: contain;
+  display: block;
+  background: #000;
+}
+
+.mvp-slideshow-fixed .mvp-slide iframe {
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: 360px;
+  aspect-ratio: unset;
+  border: 0;
+}
+
+.mvp-slideshow-fixed .placeholder-slide {
+  width: 100%;
+  height: 360px;
+  aspect-ratio: unset;
+}
+
+.mvp-slideshow-fixed .mvp-slide .slide-caption {
+  width: 100%;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .mvp-slideshow-nav {
@@ -273,4 +352,130 @@ code {
   padding: 14px 16px 16px;
   background: #0a0a0a;
   border-top: 1px solid #33FF33;
+}
+
+.mvp-slide .slide-caption {
+  margin-top: 0.4rem;
+  padding: 0 0.75rem 0.75rem;
+  font-size: 0.85rem;
+  color: #33FF33;
+  text-align: center;
+  font-style: italic;
+}
+
+.placeholder-slide {
+  width: 100%;
+  aspect-ratio: 4/3;
+  background: rgba(255, 255, 255, 0.07);
+  border: 2px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 0.95rem;
+  font-style: italic;
+}
+
+.tier-placeholder {
+  border: 1px dashed #33FF33;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 6px;
+  color: #33FF33;
+  font-style: italic;
+  text-align: center;
+}
+
+.code-scroll {
+  max-height: 260px;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+.mvp-slideshow-fixed .mvp-slide .code-scroll-carousel {
+  max-height: 300px;
+  width: 100%;
+  margin: 0;
+  border-radius: 0;
+}
+
+.code-chunks-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+@media (max-width: 900px) {
+  .code-chunks-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.code-panel {
+  min-width: 0;
+}
+
+.code-title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  color: #33FF33;
+}
+
+.code-block code {
+  background: transparent !important;
+  color: inherit;
+  display: block;
+  white-space: pre;
+}
+
+.code-block .hljs {
+  background: transparent;
+  padding: 0;
+  color: #e2e8f0;
+}
+
+.code-block-prompt,
+.code-block-prompt code {
+  color: #ff7cc8 !important;
+}
+
+.project-hub {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2.5rem;
+  margin: 2rem 0 3rem;
+}
+
+.project-hub-card {
+  flex: 1 1 280px;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.project-hub-card img {
+  width: 100%;
+  max-width: 380px;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid #33FF33;
+  margin-bottom: 1.25rem;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+a.btn-site-sm {
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+}
+
+.hub-back {
+  margin: 0 0 1.25rem 0;
 }

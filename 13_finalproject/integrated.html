@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PS70: Intro to Digital Fabrication</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../style.css" rel="stylesheet">
+</head>
+
+<body>
+<nav class="navbar navbar-expand-sm navbar-dark" style="color: #EEE7E8;">
+  <div style="align-items: center; justify-content: center;" class="container-fluid">
+    <div class="flexrow">
+      <h2 class="nav-title">PS70 Spring 2026</h2>
+    </div>
+    <div class="navbar-nav">
+      <h4><a class="nav-link" href="../index.html">Home</a></h4>
+      <h4><a class="nav-link" href="../about.html">About</a></h4>
+    </div>
+  </div>
+</nav>
+
+<div class="textcontainer">
+<p class="margin">   </p>
+
+<p class="hub-back"><a href="index.html" class="btn-site-sm">← Back to Final Project</a></p>
+
+<h3>Final Project: A Simple Tracker</h3>
+<br>
+
+<div class="split">
+  <div class="split-text">
+    <h4>Final Project Integration</h4>
+    <p>
+      My main priority for final project integration was to recreate each aspect of the project to-scale.
+      Having already tested each crucial mechanical step of the machine during the MVP, I was determined to
+      understand what structure and dimensions would best suit the final machine. Here were the changes that I made:
+    </p>
+    <ul>
+      <li>Changed "Connect Four Scottish Yoke" dropper to a "Solenoid-style servo motor extension one" because
+          it made the design a lot simpler, and allowed for the motor to be less powerful. There also was too
+          much friction on the sides in the slider.</li>
+      <li>Replaced the small 3D printed body (30mm x 80mm) with a CNC'd foam body that is much longer and
+          can double as marble storage</li>
+      <li>3D-printed a 300mm arimedes screw and attached it to a DC motor</li>
+      <li>Laser cut supports for the 300mm screw, and hot glued the contraption together</li>
+      <li>Drilled / Sawed pathways on the baseplate to force the marbles post-columns into the elevator
+          and a "waiting path"</li>
+    </ul>
+  </div>
+  <div class="split-media">
+    <div id="integrationSlideshow" class="mvp-slideshow mvp-slideshow-fixed" aria-label="Integration photos">
+      <div class="mvp-slide">
+        <iframe
+          src="https://college1042.autodesk360.com/shares/public/SH28cd1QT2badd0ea72b5b40a915201c2eff?mode=embed"
+          width="100%" height="300"
+          allowfullscreen="true"
+          webkitallowfullscreen="true"
+          mozallowfullscreen="true"
+          frameborder="0"
+          style="border-radius:6px;">
+        </iframe>
+      </div>
+      <div class="mvp-slide">
+        <iframe
+          src="https://college1042.autodesk360.com/shares/public/SH28cd1QT2badd0ea72b722ad4fc821df027?mode=embed"
+          width="100%" height="300"
+          allowfullscreen="true"
+          webkitallowfullscreen="true"
+          mozallowfullscreen="true"
+          frameborder="0"
+          style="border-radius:6px;">
+        </iframe>
+      </div>
+      <div class="mvp-slide">
+        <iframe
+          src="https://college1042.autodesk360.com/shares/public/SH28cd1QT2badd0ea72b0c7003f238fed27d?mode=embed"
+          width="100%" height="300"
+          allowfullscreen="true"
+          webkitallowfullscreen="true"
+          mozallowfullscreen="true"
+          frameborder="0"
+          style="border-radius:6px;">
+        </iframe>
+      </div>
+      <div class="mvp-slideshow-nav">
+        <button type="button" class="btn-site-sm" id="integrationPrev">Previous</button>
+        <button type="button" class="btn-site-sm" id="integrationNext">Next</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="split flip">
+  <div class="split-media">
+    <div id="todoSlideshow" class="mvp-slideshow mvp-slideshow-fixed" aria-label="To do and wiring photos">
+      <div class="mvp-slide">
+        <video controls muted playsinline>
+          <source src="assets/IMG_8978.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div class="mvp-slide">
+        <img src="assets/intro-integrated-week.png" alt="Accurately sized version from integrated materials week">
+        <div class="slide-caption">Accurately Sized Version from Integrated Materials Week</div>
+      </div>
+      <div class="mvp-slideshow-nav">
+        <button type="button" class="btn-site-sm" id="todoPrev">Previous</button>
+        <button type="button" class="btn-site-sm" id="todoNext">Next</button>
+      </div>
+    </div>
+  </div>
+  <div class="split-text">
+    <h4>To Do:</h4>
+    <ul>
+      <li>Set up the motor dropper at the top such it's connected to the elevator.</li>
+      <li>Put a photoresistor in the motor dropper so that I can tell when a marble has dropped.</li>
+      <li>Wire everything together</li>
+      <li>Remake with better materials!</li>
+    </ul>
+
+    <h4>Ideal Timeline:</h4>
+    <ul>
+      <li><strong>May 4th</strong> → Setup motor dropper</li>
+      <li><strong>May 5th</strong> → Wire everything</li>
+      <li><strong>May 6th</strong> → Fix everything that went wrong. Safety day.</li>
+      <li><strong>May 7th and May 8th</strong> → Rebuild with better materials.</li>
+    </ul>
+  </div>
+</div>
+
+</div><!-- /textcontainer -->
+
+<script src="../media.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../slideshow.js"></script>
+<script>
+  PS70Slideshow.initAll([
+    { root: "integrationSlideshow", prev: "integrationPrev", next: "integrationNext" },
+    { root: "todoSlideshow",        prev: "todoPrev",        next: "todoNext" }
+  ]);
+</script>
+</body>
+</html>
